@@ -75,7 +75,7 @@ public class AutoDistanceRed4 extends LinearOpMode {
 
 
                 } else {
-                    turnLeft(0.25, 3000);
+                    turnLeft(0.25, 2600);
                         sleep(1000);
                         Prop = 3;
 
@@ -112,7 +112,7 @@ public class AutoDistanceRed4 extends LinearOpMode {
         runMotorsTime(-0.25, 2000);
         turnLeft(0.25,1500);
         runMotorsTime(-0.25,2000);
-        strafeMotorsRight(0.25,3000);
+        strafeMotorsRight(0.25,5000);
     }
     //Prop 3=right spike mark
     public void PropEqualsThree () {
@@ -120,7 +120,7 @@ public class AutoDistanceRed4 extends LinearOpMode {
         runMotorsTime(-0.25, 700);
         turnRight(0.25,1500);
         runMotorsTime(-0.25,2000);
-        strafeMotorsRight(0.25,5000);
+        strafeMotorsRight(0.25,8000);
     }
 
 

@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous (name="AutoDistanceRed2")
-public class AutoDistanceRed2 extends LinearOpMode {
+@Autonomous (name="AutoDistanceBlue4")
+public class AutoDistanceBlue4 extends LinearOpMode {
 
     private DistanceSensor distanceSensor;
     private DcMotor FLeft;
@@ -75,7 +75,7 @@ public class AutoDistanceRed2 extends LinearOpMode {
 
 
                 } else {
-                    turnLeft(0.25, 2000);
+                    turnLeft(0.25, 2500);
                     sleep(1000);
                     Prop = 3;
 
@@ -98,8 +98,7 @@ public class AutoDistanceRed2 extends LinearOpMode {
     public void PropEqualsOne () {
         runMotorsTime(0.25, 800);
         runMotorsTime(-0.25, 3100);
-        turnLeft(0.25,2050);
-        runMotorsTime(0.25,10000);
+        strafeMotorsRight(-0.25,6000);
 
 
         telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
@@ -110,21 +109,19 @@ public class AutoDistanceRed2 extends LinearOpMode {
     //Prop 2=left spike mark
     public void PropEqualsTwo () {
         turnRight(0.25,300);
-        runMotorsTime(0.25,750);
-        runMotorsTime(-0.25, 700) ;
+        runMotorsTime(0.25,650);
+        runMotorsTime(-0.25, 600) ;
         turnLeft(0.25,1400);
         runMotorsTime(-0.25,2500);
-        turnLeft(0.25,2050);
-        runMotorsTime(0.25,8500);
+        strafeMotorsRight(-0.25,6000);
     }
     //Prop 3=right spike mark
     public void PropEqualsThree () {
         runMotorsTime(0.25, 750);
         runMotorsTime(-0.25, 700);
-        turnRight(0.25,900);
+        turnRight(0.25,1400);
         runMotorsTime(-0.25,2000);
-       turnLeft(0.25,2050);
-       runMotorsTime(0.25,8500);
+        strafeMotorsRight(-0.25,8000);
     }
 
 
