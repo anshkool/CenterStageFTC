@@ -5,12 +5,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous (name="AutoDistanceBlue2W")
-public class AutoDistanceBlue2W extends LinearOpMode {
+@Autonomous (name="AdvanceRed2")
+public class AdvanceRed2 extends LinearOpMode {
 
     private DistanceSensor distanceSensor;
     private DcMotor FLeft;
@@ -30,7 +29,7 @@ public class AutoDistanceBlue2W extends LinearOpMode {
         FRight = hardwareMap.get(DcMotor.class, "FRight");
         distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
-        FLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        BLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         FRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -38,13 +37,25 @@ public class AutoDistanceBlue2W extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            runMotorsTime(0.25,1700);
+            BLeft.setPower(.25);
+            BRight.setPower(.25);
+            FRight.setPower(.25);
+            FLeft.setPower(.25);
 
             telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("Status", "RunningMotorsForwards");
             telemetry.update();
 
+            sleep(1700);
 
+            BLeft.setPower(0);
+            BRight.setPower(0);
+            FRight.setPower(0);
+            FLeft.setPower(0);
+            //TODO: Change around these values
+            //TODO: FIGURE OUT BETTER WAY TO SOLVE THIS ISSUE WITH INACCURATE SENSOR
+
+            sleep(1000);
             if (distanceSensor.getDistance(DistanceUnit.CM) < 25) {
                 sleep(1000);
                 Prop = 1;
@@ -53,7 +64,8 @@ public class AutoDistanceBlue2W extends LinearOpMode {
                 telemetry.update();
 
             } else {
-                turnLeft(0.25, 1200);
+                turnRight(0.25, 1000);
+                sleep(1000);
                 if (distanceSensor.getDistance(DistanceUnit.CM) < 25) {
                     sleep(1000);
                     Prop = 2;
@@ -63,7 +75,7 @@ public class AutoDistanceBlue2W extends LinearOpMode {
 
 
                 } else {
-                    turnRight(0.25, 2500);
+                    turnLeft(0.25, 2000);
                     sleep(1000);
                     Prop = 3;
 
@@ -82,31 +94,36 @@ public class AutoDistanceBlue2W extends LinearOpMode {
         }
     }
 
+    //Prop 1=middle spike mark
     public void PropEqualsOne () {
-        runMotorsTime(0.25, 825);
-        runMotorsTime(-0.25, 2700);
-        turnRight(0.25, 2050);
-        runMotorsTime(0.25,8000);
+        runMotorsTime(0.25, 550);
+        runMotorsTime(-0.25, 2200);
+        turnLeft(0.25,1650);
+        runMotorsTime(0.25,10000);
+
 
         telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
         telemetry.addData("Status", "Running");
         telemetry.update();
 
     }
+    //Prop 2=left spike mark
     public void PropEqualsTwo () {
-        runMotorsTime(0.25, 700);
-        runMotorsTime(-0.25, 500);
-        turnRight(0.25,1000);
-        runMotorsTime(-0.25,2600);
-        turnRight(0.25, 2050);
+        turnRight(0.25,300);
+        runMotorsTime(0.25, 750);
+        runMotorsTime(-0.25, 700) ;
+        turnLeft(0.25,1400);
+        runMotorsTime(-0.25,2500);
+        turnLeft(0.25,1800);
         runMotorsTime(0.25,8500);
     }
+    //Prop 3=right spike mark
     public void PropEqualsThree () {
-        runMotorsTime(0.25, 400);
-        runMotorsTime(-0.25, 550);
-        turnLeft(0.25,1250);
-        runMotorsTime(-0.25,2600);
-        turnRight(0.25, 2050);
+        runMotorsTime(0.25, 750);
+        runMotorsTime(-0.25, 700);
+        turnRight(0.25,900);
+        runMotorsTime(-0.25,2000);
+        turnLeft(0.25,1900);
         runMotorsTime(0.25,8500);
     }
 
@@ -138,20 +155,6 @@ public class AutoDistanceBlue2W extends LinearOpMode {
     }
 
     public void strafeMotorsRight (double power, long motorTime){
-        BLeft.setPower(power);
-        BRight.setPower(-power);
-        FRight.setPower(power);
-        FLeft.setPower(-power);
-
-        sleep(motorTime);
-
-        BLeft.setPower(0);
-        BRight.setPower(0);
-        FRight.setPower(0);
-        FLeft.setPower(0);
-    }
-
-    public void strafeMotorsLeft (double power, long motorTime){
         BLeft.setPower(-power);
         BRight.setPower(power);
         FRight.setPower(-power);
@@ -165,11 +168,25 @@ public class AutoDistanceBlue2W extends LinearOpMode {
         FLeft.setPower(0);
     }
 
-    public void turnRight (double power, long motorTime){
-        BLeft.setPower(-power);
-        BRight.setPower(power);
+    public void strafeMotorsLeft (double power, long motorTime){
+        BLeft.setPower(power);
+        BRight.setPower(-power);
         FRight.setPower(power);
         FLeft.setPower(-power);
+
+        sleep(motorTime);
+
+        BLeft.setPower(0);
+        BRight.setPower(0);
+        FRight.setPower(0);
+        FLeft.setPower(0);
+    }
+
+    public void turnRight (double power, long motorTime){
+        BLeft.setPower(power);
+        BRight.setPower(-power);
+        FRight.setPower(-power);
+        FLeft.setPower(power);
 
         sleep(motorTime);
 
@@ -182,10 +199,10 @@ public class AutoDistanceBlue2W extends LinearOpMode {
 
 
     public void turnLeft (double power, long motorTime){
-        BLeft.setPower(power);
-        BRight.setPower(-power);
-        FRight.setPower(-power);
-        FLeft.setPower(power);
+        BLeft.setPower(-power);
+        BRight.setPower(power);
+        FRight.setPower(power);
+        FLeft.setPower(-power);
 
         sleep(motorTime);
 
@@ -196,3 +213,5 @@ public class AutoDistanceBlue2W extends LinearOpMode {
     }
 
 }
+
+

@@ -30,8 +30,10 @@ public class AutoDistanceBlue4W extends LinearOpMode {
         FRight = hardwareMap.get(DcMotor.class, "FRight");
         distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
-        BLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
         FRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        FLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         waitForStart();
@@ -94,9 +96,9 @@ public class AutoDistanceBlue4W extends LinearOpMode {
     }
 
     public void PropEqualsOne () {
-        runMotorsTime(0.25, 500);
-        runMotorsTime(-0.25, 2500);
-        strafeMotorsLeft(0.25,5000);
+        runMotorsTime(0.25, 350);
+        runMotorsTime(-0.25, 3000);
+        strafeMotorsLeft(0.25,5500);
 
         telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
         telemetry.addData("Status", "Running");
@@ -104,7 +106,7 @@ public class AutoDistanceBlue4W extends LinearOpMode {
 
     }
     public void PropEqualsTwo () {
-        turnRight(0.25,300);
+        turnRight(0.25,200);
         runMotorsTime(0.25, 600);
         runMotorsTime(-0.25, 2000);
         turnLeft(0.25,2000);
@@ -112,9 +114,9 @@ public class AutoDistanceBlue4W extends LinearOpMode {
         strafeMotorsLeft(0.25, 8000);
     }
     public void PropEqualsThree () {
-        runMotorsTime(0.25, 500);
-        runMotorsTime(-0.25, 500);
-        turnRight(0.25,1500);
+        runMotorsTime(0.25, 200);
+        runMotorsTime(-0.25, 600);
+        turnRight(0.25,2000);
         runMotorsTime(-0.25, 2500);
         strafeMotorsLeft(0.25, 7000);
     }
@@ -148,8 +150,8 @@ public class AutoDistanceBlue4W extends LinearOpMode {
 
     public void strafeMotorsRight (double power, long motorTime){
         BLeft.setPower(-power);
-        BRight.setPower(power);
-        FRight.setPower(-power);
+        BRight.setPower(-power);
+        FRight.setPower(power);
         FLeft.setPower(power);
 
         sleep(motorTime);
@@ -162,8 +164,8 @@ public class AutoDistanceBlue4W extends LinearOpMode {
 
     public void strafeMotorsLeft (double power, long motorTime){
         BLeft.setPower(power);
-        BRight.setPower(-power);
-        FRight.setPower(power);
+        BRight.setPower(power);
+        FRight.setPower(-power);
         FLeft.setPower(-power);
 
         sleep(motorTime);

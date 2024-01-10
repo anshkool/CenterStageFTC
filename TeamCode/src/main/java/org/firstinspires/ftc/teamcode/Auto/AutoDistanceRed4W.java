@@ -29,18 +29,16 @@ public class AutoDistanceRed4W extends LinearOpMode {
         FRight = hardwareMap.get(DcMotor.class, "FRight");
         distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
 
-        BLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         FRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        FLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         waitForStart();
 
 
         if (opModeIsActive()) {
-            BLeft.setPower(.25);
-            BRight.setPower(.25);
-            FRight.setPower(.25);
-            FLeft.setPower(.25);
+          runMotorsTime(0.25,1700);
 
             telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
             telemetry.addData("Status", "RunningMotorsForwards");
@@ -96,9 +94,9 @@ public class AutoDistanceRed4W extends LinearOpMode {
 
     //Prop 1=middle spike mark
     public void PropEqualsOne () {
-        runMotorsTime(0.25, 800);
-        runMotorsTime(-0.25, 3100);
-        strafeMotorsRight(0.25,6000);
+        runMotorsTime(0.25, 350);
+        runMotorsTime(-0.25, 3000);
+        strafeMotorsRight(0.25,5500);
 
         telemetry.addData("Distance (cm)", distanceSensor.getDistance(DistanceUnit.CM));
         telemetry.addData("Status", "Running");
@@ -152,8 +150,8 @@ public class AutoDistanceRed4W extends LinearOpMode {
 
     public void strafeMotorsRight (double power, long motorTime){
         BLeft.setPower(-power);
-        BRight.setPower(power);
-        FRight.setPower(-power);
+        BRight.setPower(-power);
+        FRight.setPower(power);
         FLeft.setPower(power);
 
         sleep(motorTime);
@@ -166,8 +164,8 @@ public class AutoDistanceRed4W extends LinearOpMode {
 
     public void strafeMotorsLeft (double power, long motorTime){
         BLeft.setPower(power);
-        BRight.setPower(-power);
-        FRight.setPower(power);
+        BRight.setPower(power);
+        FRight.setPower(-power);
         FLeft.setPower(-power);
 
         sleep(motorTime);
